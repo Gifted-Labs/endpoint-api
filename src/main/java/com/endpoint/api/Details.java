@@ -1,5 +1,8 @@
 package com.endpoint.api;
 
+import java.util.Date;
+import java.text.SimpleDateFormat;
+
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
@@ -19,7 +22,11 @@ public class Details {
     public Details(String slack_name, String track) {
         this.slack_name = slack_name;
         this.track = track;
-        
+        this.current_day = dayOfWeek();
+        this.utc_time = formatUtcTime();
+        this.track = track;
+        this.github_file_url = "";
+        this.github_repo_url = "";
         this.status_code = 200;
     }
 
@@ -68,5 +75,28 @@ public class Details {
     }
 
     
+     protected String dayOfWeek(){
+        
+        // Get the current date
+        Date currentDate = new Date();
+
+        // Define the date format
+        SimpleDateFormat formatter = new SimpleDateFormat("EEEE");
+
+        // Format the current date to get the day of the week
+        String today = formatter.format(currentDate);
+
+        // Print the day of the week
+        return today;
     
+    }
+
+    protected String formatUtcTime() {
+        Date currentDate = new Date();
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'");
+        formatter.setTimeZone(java.util.TimeZone.getTimeZone("UTC"));
+        return formatter.format(currentDate);
+
+    
+}
 }
